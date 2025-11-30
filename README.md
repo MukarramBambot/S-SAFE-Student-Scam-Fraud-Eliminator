@@ -118,6 +118,8 @@ The 10-step pipeline for every message analysis:
 
 ### 1. System Architecture (Full Stack)
 
+
+
 ```mermaid
 graph TD
     User["User"] -->|HTTPS| Frontend["Frontend (HTML/JS)"]
@@ -141,7 +143,12 @@ graph TD
     Core -->|JSON Response| Frontend
 ```
 
+
+
 ### 2. Backend Architecture
+
+
+
 
 ```mermaid
 classDiagram
@@ -168,7 +175,11 @@ classDiagram
     Core --> Agents
 ```
 
+
+
 ### 3. Database Schema
+
+
 
 ```mermaid
 erDiagram
@@ -200,7 +211,11 @@ erDiagram
     }
 ```
 
+
+
 ### 4. Multi-Agent Sequence
+
+
 
 ```mermaid
 sequenceDiagram
@@ -223,7 +238,7 @@ sequenceDiagram
     C->>U: Display Result
 ```
 
----
+
 
 ## 🧅 Deep Dive Into TOON
 
