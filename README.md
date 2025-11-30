@@ -145,6 +145,8 @@ graph TD
 
 
 
+
+
 ### 2. Backend Architecture
 
 
@@ -174,6 +176,8 @@ classDiagram
     Main --> Core
     Core --> Agents
 ```
+
+
 
 
 
@@ -213,6 +217,8 @@ erDiagram
 
 
 
+
+
 ### 4. Multi-Agent Sequence
 
 
@@ -236,7 +242,11 @@ sequenceDiagram
     C->>D: Aggregate All Data
     D-->>C: Final Verdict & Explanation
     C->>U: Display Result
+
+
+
 ```
+
 
 
 
