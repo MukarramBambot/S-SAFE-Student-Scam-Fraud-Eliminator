@@ -12,7 +12,7 @@ from google.api_core import exceptions
 
 logger = logging.getLogger("backend.tools.gemini")
 
-GEMINI_API_KEY = os.environ.get("AIzaSyBj62fboLLhoq_VGeEXqafHJ8Wmm9waQl0")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
