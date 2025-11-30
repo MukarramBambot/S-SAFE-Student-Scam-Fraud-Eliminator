@@ -1,0 +1,38 @@
+{
+  "legitimate_keywords": [
+    "interview scheduled",
+    "offer letter",
+    "HR department",
+    "official contract",
+    "background check",
+    "tax forms",
+    "direct deposit",
+    "company portal",
+    "video call",
+    "on-site interview",
+    "technical round"
+  ],
+  "suspicious_keywords": [],
+  "verified_domains": [
+    "@google.com",
+    "@microsoft.com",
+    "@amazon.com",
+    "@apple.com",
+    "@netflix.com",
+    "@meta.com",
+    "@linkedin.com",
+    "@zoho.com",
+    "@tcs.com",
+    "@infosys.com",
+    "@wipro.com",
+    "@university.edu"
+  ],
+  "fake_domains": [],
+  "behaviors": [
+    "no upfront pay",
+    "clear salary",
+    "proper company address",
+    "professional communication",
+    "structured interview process"
+  ]
+}

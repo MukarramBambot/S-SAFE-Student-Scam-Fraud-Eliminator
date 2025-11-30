@@ -1,0 +1,37 @@
+{
+  "legitimate_keywords": [],
+  "suspicious_keywords": [
+    "registration fee",
+    "quick earnings",
+    "Whatsapp job",
+    "pay to start",
+    "wire transfer",
+    "western union",
+    "cash app",
+    "crypto payment",
+    "immediate hiring",
+    "no interview",
+    "kindly",
+    "dear candidate",
+    "refundable deposit",
+    "security fee",
+    "training fee",
+    "laptop fee"
+  ],
+  "verified_domains": [],
+  "fake_domains": [
+    "@gmail.com jobs",
+    "@workfromhome.cash",
+    "@yahoo.com careers",
+    "@hotmail.com hr",
+    "@outlook.com hiring"
+  ],
+  "behaviors": [
+    "no interview",
+    "salary unrealistic",
+    "crypto payout",
+    "pressure to act fast",
+    "poor grammar",
+    "unprofessional email"
+  ]
+}

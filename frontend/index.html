@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-SAFE - Student Scam & Fraud Eliminator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles"></div>
+
+    <!-- Authentication Modals -->
+    <div class="auth-modal" id="login-modal">
+        <div class="auth-modal-content">
+            <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+            <div class="auth-header">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue to S-SAFE</p>
+            </div>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="auth-btn">
+                    <span>Sign In</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+            <p class="auth-switch">
+                Don't have an account? <a href="#" onclick="switchToSignup()">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="signup-modal">
+        <div class="auth-modal-content">
+            <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+            <div class="auth-header">
+                <i class="fa-solid fa-user-plus"></i>
+                <h2>Create Account</h2>
+                <p>Join S-SAFE to protect yourself</p>
+            </div>
+            <form id="signup-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="signup-username" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signup-password" required minlength="6">
+                </div>
+                <button type="submit" class="auth-btn">
+                    <span>Create Account</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+            <p class="auth-switch">
+                Already have an account? <a href="#" onclick="switchToLogin()">Sign in</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-modal-content">
+            <div class="settings-header">
+                <h2><i class="fa-solid fa-gear"></i> Settings</h2>
+                <button class="modal-close" onclick="closeSettings()">&times;</button>
+            </div>
+            <div class="settings-body">
+                <div class="settings-section">
+                    <h3>Profile Information</h3>
+                    <div class="profile-info">
+                        <p><strong>Username:</strong> <span id="profile-username">-</span></p>
+                        <p><strong>Email:</strong> <span id="profile-email">-</span></p>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Preferences</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="detailed-analysis-toggle">
+                            Show Detailed Analysis
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <button class="danger-btn" onclick="handleLogout()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1 class="logo-text">S-SAFE</h1>
+            </div>
+
+            <!-- User Profile (shown when logged in) -->
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <p class="user-name" id="sidebar-username">User</p>
+                    <button class="settings-btn" onclick="openSettings()">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- New Chat Button -->
+            <button class="new-chat-btn" id="new-chat-btn" onclick="createNewChat()" style="display: none;">
+                <i class="fa-solid fa-plus"></i>
+                <span>New Chat</span>
+            </button>
+
+            <!-- Chat History -->
+            <div class="chat-history" id="chat-history" style="display: none;">
+                <h3>Recent Chats</h3>
+                <div class="chat-list" id="chat-list">
+                    <!-- Chats will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="chat">
+                    <i class="fa-solid fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-item" data-view="about">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>About</span>
+                </button>
+            </nav>
+
+            <!-- Login Button (shown when logged out) -->
+            <button class="login-btn" id="login-btn" onclick="openLoginModal()">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Sign In</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-container" id="chat-view">
+        <!-- Hero Section -->
+        <div class="hero-section" id="hero-section">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1 class="hero-title">Welcome to S-SAFE</h1>
+                <p class="hero-subtitle">AI-powered fraud detection to keep students safe</p>
+
+                <div class="suggestion-cards">
+                    <div class="suggestion-card"
+                        onclick="useSuggestion('Analyze this job offer: Software Developer Intern at TechCorp')">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Analyze Job Offer</span>
+                    </div>
+                    <div class="suggestion-card" onclick="useSuggestion('Check this internship opportunity')">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Check Internship</span>
+                    </div>
+                    <div class="suggestion-card" onclick="useSuggestion('Verify this company email')">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Verify Email</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-container" id="chat-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-container">
+                <div class="file-preview" id="file-preview"></div>
+
+                <div class="input-wrapper">
+                    <button class="attach-btn" id="attach-btn">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </button>
+                    <textarea id="user-input" placeholder="Describe the job offer or paste the message here..."
+                        rows="1"></textarea>
+                    <button class="send-btn" id="send-btn" disabled>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden file input -->
+        <input type="file" id="file-input" accept=".pdf,.docx,.txt" multiple style="display: none;">
+    </main>
+
+    <!-- About View -->
+    <main class="main-container about-view" id="about-view" style="display: none;">
+        <div class="about-container">
+            <div class="about-header">
+                <div class="about-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h1>About S-SAFE</h1>
+                <p class="about-tagline">Student Scam & Fraud Eliminator</p>
+            </div>
+
+            <section class="about-section">
+                <h2><i class="fa-solid fa-bullseye"></i> Overview</h2>
+                <p>S-SAFE is an intelligent fraud detection system designed to protect students from job scams, fake
+                    internships, and fraudulent opportunities. Using advanced pattern recognition and online
+                    verification, S-SAFE analyzes suspicious messages and provides clear, actionable guidance.</p>
+            </section>
+
+            <section class="about-section">
+                <h2><i class="fa-solid fa-heart"></i> Our Mission</h2>
+                <p>To empower students with the tools and knowledge to identify and avoid scams, ensuring safe career
+                    exploration and protecting them from financial and emotional harm.</p>
+            </section>
+
+            <section class="about-section">
+                <h2><i class="fa-solid fa-star"></i> Key Features</h2>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check"></i> Real-time fraud detection</li>
+                    <li><i class="fa-solid fa-check"></i> Company verification</li>
+                    <li><i class="fa-solid fa-check"></i> Email domain validation</li>
+                    <li><i class="fa-solid fa-check"></i> Salary reality checks</li>
+                    <li><i class="fa-solid fa-check"></i> Pattern-based analysis</li>
+                    <li><i class="fa-solid fa-check"></i> Natural language explanations</li>
+                </ul>
+            </section>
+
+            <section class="about-section">
+                <h2><i class="fa-solid fa-diagram-project"></i> How S-SAFE Works</h2>
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <h3>Extraction</h3>
+                        <p>Analyzes job offers to extract company names, emails, fees, and red flags</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <h3>Research</h3>
+                        <p>Verifies companies online and checks for scam reports</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <h3>Pattern Matching</h3>
+                        <p>Compares against known scam and legitimate patterns</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <h3>Decision</h3>
+                        <p>Provides clear verdict with detailed explanation</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about-section">
+                <h2><i class="fa-solid fa-shield-halved"></i> Privacy & Security</h2>
+                <p>Your data is processed locally and never shared with third parties. All analysis happens on our
+                    secure servers, and your chat history is encrypted and accessible only to you.</p>
+            </section>
+
+            <section class="about-section disclaimer">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> Disclaimer</h2>
+                <p>S-SAFE provides guidance based on pattern analysis and available information. While we strive for
+                    accuracy, no automated system is perfect. Always verify opportunities through official channels and
+                    trust your instincts. S-SAFE is a tool to assist your judgment, not replace it.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Toast -->
+    <div class="notification-toast" id="notification-toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>
